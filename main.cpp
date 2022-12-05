@@ -9,9 +9,9 @@ void printLog()
   using namespace std::literals::chrono_literals;
 
   while (!is_finish) {
-    auto start_time = std::chrono::system_clock::now();
+    auto start_time = std::chrono::high_resolution_clock::now();
     std::this_thread::sleep_for(1s);
-    auto end_time = std::chrono::system_clock::now();
+    auto end_time = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> duration = end_time - start_time;
 
     std::cout << "[INFO] running on thread " << std::this_thread::get_id()
