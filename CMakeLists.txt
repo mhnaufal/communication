@@ -9,9 +9,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(server main_server.cpp) # the exeexecutable name
 add_executable(client main_client.cpp) # the exeexecutable name
+add_executable(ipc main_ipc.cpp) # the exeexecutable name
 
 target_link_libraries(server zmq) # link this project with the given library name
 target_link_libraries(client zmq) # link this project with the given library name
+target_link_libraries(ipc zmq) # link this project with the given library name
 
 #################
 # zeromq #

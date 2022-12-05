@@ -13,7 +13,8 @@ int main()
 
   // construct a reply socket and bind to interface
   zmq::socket_t socket{context, zmq::socket_type::req};
-  socket.connect("tcp://localhost:5555"); // connect to nge-connect ke open connection
+  // socket.connect("tcp://localhost:5555"); // connect to nge-connect ke open connection
+  socket.connect("ipc:///home/fr13nds/temp/ipc/hole.sock"); // connect to nge-connect ke open connection
 
   // prepare request data
   const std::string data{"client 👁"};
