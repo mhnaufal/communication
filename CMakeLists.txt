@@ -11,8 +11,8 @@ add_executable(server main_server.cpp) # the exeexecutable name
 add_executable(client main_client.cpp) # the exeexecutable name
 add_executable(ipc main_ipc.cpp) # the exeexecutable name
 add_executable(thread main_thread.cpp) # the exeexecutable name
-add_executable(server-pub server_pub.cpp) # the exeexecutable name
-add_executable(client-sub client_sub.cpp) # the exeexecutable name
+add_executable(cv-server cv_server.cpp) # the exeexecutable name
+add_executable(cv-client cv_client.cpp) # the exeexecutable name
 
 #################
 # zeromq #
@@ -37,5 +37,5 @@ target_link_libraries(server zmq) # link this project with the given library nam
 target_link_libraries(client zmq) # link this project with the given library name
 target_link_libraries(ipc zmq) # link this project with the given library name
 target_link_libraries(thread zmq pthread msgpackc-cxx) # link this project with the given library name
-target_link_libraries(server-pub zmq pthread msgpackc-cxx ${OpenCV_LIBS}) # link this project with the given library
-target_link_libraries(client-sub zmq pthread msgpackc-cxx ${OpenCV_LIBS}) # link this project with the given library name
+target_link_libraries(cv-server zmq pthread msgpackc-cxx ${OpenCV_LIBS}) # link this project with the given library
+target_link_libraries(cv-client zmq pthread msgpackc-cxx ${OpenCV_LIBS}) # link this project with the given library name

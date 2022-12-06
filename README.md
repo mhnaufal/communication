@@ -17,6 +17,7 @@
 3. **Socket** = A socket is an endpoint of communication to which a name can be bound
 4. **Semaphore** = Semaphores let processes query or alter status information
 5. **Message passing** = message-passing module a message onto a queue which can be read by another process
+6. **Pub socket** = cannot receive any data, only send. fan-in no fan-out.
 
 ## ZeroMQ
 
