@@ -29,19 +29,24 @@ void sendResponse(zmq::socket_t& socket, const std::string& tag, const T& data)
 
   std::cout << "publish... " << body_msg << std::endl;
 
-  socket.send(tag_msg, zmq::send_flags::sndmore);
+  //  socket.send(tag_msg, zmq::send_flags::sndmore);
   socket.send(body_msg, zmq::send_flags::none);
 }
 
 int main()
 {
-  zmq::context_t ctx(1);
-  zmq::socket_t server(ctx, zmq::socket_type::pub);
+  zmq::context_t ctx{1};
+  zmq::socket_t server{ctx, zmq::socket_type::rep};
   server.bind("ipc:///home/fr13nds/temp/ipc/cv.sock");
 
   const std::string tag = "tag";
 
   while (true) {
+    zmq::message_t req;
+
+    server.recv(req, zmq::recv_flags::none);
+    std::cout << "process 1 " << req.to_string() << std::endl;
+
     const std::time_t now = std::time(nullptr);
 
     Message msg1;

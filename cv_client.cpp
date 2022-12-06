@@ -37,18 +37,29 @@ void sendRequest(zmq::socket_t& socket, T& data)
 
 int main()
 {
-  zmq::context_t ctx(1);
-  zmq::socket_t client(ctx, zmq::socket_type::sub);
+  zmq::context_t ctx{1};
+  zmq::socket_t client{ctx, zmq::socket_type::req};
   client.connect("ipc:///home/fr13nds/temp/ipc/cv.sock");
 
-  const std::string tag = "tag";
-  client.set(zmq::sockopt::subscribe, tag.c_str());
+  //  const std::string tag = "tag";
+  const std::string data{"client 👁"};
 
   while (true) {
+    std::cout << "sending request..." << std::endl;
+    client.send(zmq::buffer(data), zmq::send_flags::none);
+
+    /*response*/
     Message msg1;
-    sendRequest(client, msg1);
-    std::cout << msg1.time << " [" << msg1.tag << "] " << msg1.text
-              << std::endl;
+    zmq::message_t reply;
+    msgpack::unpacked unpacked_body;
+
+    client.recv(reply, zmq::recv_flags::none);
+    msgpack::unpack(unpacked_body, static_cast<const char*>(reply.data()),
+                    reply.size());
+    unpacked_body.get().convert(msg1);
+
+    std::cout << "received response: " << reply << " || " << msg1.time << "[ "
+              << msg1.tag << " ] ==> " << msg1.text << std::endl;
   }
 
   return EXIT_SUCCESS;
