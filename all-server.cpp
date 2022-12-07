@@ -10,7 +10,7 @@ int main()
 
   auto img = cv::imread("../img1.jpg", cv::IMREAD_COLOR);
 
-  while (1) {
+  while (true) {
     const std::time_t now = std::time(nullptr);
     /* open for requests */
     std::cout << "open for request..." << std::endl;
@@ -25,6 +25,9 @@ int main()
     msg_reply.text = "I replied with cv::Mat";
     msg_reply.img = std::vector<uchar>(
         img.data, img.data + (img.rows * img.cols * img.channels()));
+    msg_reply.height = img.rows;
+    msg_reply.width = img.cols;
+    msg_reply.type = img.type();
 
     /* packed the reply data using msgpack */
     msgpack::sbuffer packed_reply;
@@ -35,7 +38,7 @@ int main()
     std::memcpy(packed_msg.data(), packed_reply.data(), packed_reply.size());
     server.send(packed_msg, zmq::send_flags::none);
 
-    std::this_thread::sleep_for(2s);
+    std::this_thread::sleep_for(5s);
   }
 
   return EXIT_SUCCESS;

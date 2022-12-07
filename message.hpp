@@ -22,7 +22,10 @@ struct Message {
   std::time_t time{};
   std::string text;
   std::vector<uchar> img;
-  MSGPACK_DEFINE(tag, time, text, img);
+  uint16_t height = 0;
+  uint16_t width = 0;
+  uint16_t type = 0;
+  MSGPACK_DEFINE(tag, time, text, img, height, width, type);
 };
 
 #endif  //THREAD_MESSAGE_HPP
