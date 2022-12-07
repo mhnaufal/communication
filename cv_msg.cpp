@@ -18,10 +18,14 @@ int main()
       img.data, img.data + (img.rows * img.cols * img.channels()));
 
   std::cout << "[REAL] " << m1.tag << " " << m1.time << " " << m1.text << " "
-            << img << " ";
-  for (auto item : m1.img) std::cout << item << std::endl;
+            << img.empty() << std::endl;
+  //  for (auto item : m1.img) std::cout << item << std::endl;
 
+  msgpack::sbuffer packed_data;
+  msgpack::pack(&packed_data, m1);
 
+  std::cout << "[PACKED] " << packed_data.data() << " || " << packed_data.size()
+            << std::endl;
 
   return EXIT_SUCCESS;
 }
